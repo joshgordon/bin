@@ -1,0 +1,42 @@
+#!/usr/bin/php
+<?
+# built mainly to work with access points:
+#  001801, 001F90, 0020E0, 001EA7, 000FB3, 001505, 00247B
+if(strlen($argv[1]) == 22) {
+  $argv[2] = substr($argv[1],5);
+  $argv[1] = substr($argv[1],0,5);
+}
+$mac = "00-11-22-33-44-55";
+if(isset($argv[1])) $mac = $argv[1];
+$ssid = "A1B23";
+if(isset($argv[2])) $ssid = $argv[2];
+if(strlen($mac) == 5) {
+  $t = $mac;
+  $mac = $ssid;
+  $ssid = $t;
+}
+
+$mac = preg_replace("/[^a-fA-F0-9]/","",$mac);
+$a='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+$LtoN = array();
+for($i = 0; $i < 36; $i++) {
+  $LtoN[substr($a,$i,1)] = $i;
+}
+# Make this lookup table:
+# 0=00, 1=01, 2=02, 3=03, 4=04, 5=05,
+# 6=06, 7=07, 8=08, 9=09, A=10, B=11,
+# C=12, D=13, E=14, F=15, G=16, H=17,
+# I=18, J=19, K=20, L=21, M=22, N=23,
+# O=24, P=25, Q=26, R=27, S=28, T=29,
+# U=30, V=31, W=32, X=33, Y=34, Z=35
+
+$val = 0;
+$mult = 1;
+for($i = 0; $i < strlen($ssid); $i++) {
+  $val = $val + $mult * $LtoN[substr($ssid,$i,1)];
+  $mult = $mult * 36;
+}
+#echo $val;
+echo $ssid." ".substr($mac,2,4).dechex($val);
+echo "\n";
+?>

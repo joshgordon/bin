@@ -1,0 +1,32 @@
+#!/bin/bash
+# Remove all files on the command line which start with a , (comma) or end
+# in a ~ (tilda).
+
+# Loop over every file on the command line.
+#
+for i in `seq 1 $#`
+do
+  eval x=\${$i}
+  y=`echo $x | sed 's/~$//'`
+
+  if [ "$x" != "$y" ];  then
+    echo rm "$x"
+    if [ -d .svn ]; then
+      svn rm --force "$x"
+    else
+    rm -f "$x"
+    fi
+  fi
+
+  y=`echo $x | sed 's/^,//'`
+  if [ "$x" != "$y" ]; then
+   echo rm "$x"
+   if [ -d .svn ]; then
+     svn --force rm "$x"
+   else
+     rm -f "$x"
+   fi
+rm -f "$x"
+  fi
+
+done
