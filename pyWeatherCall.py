@@ -1,4 +1,16 @@
-#!/bin/sh
+#!/usr/bin/env python
+# Simple python scrypt for calling weather undergournd API for collecting
+# some simple weather info. Currently inculudes temp, weather ("clear", etc), 
+# and a URL to an icon. 
+
+# API key is stored in a file in the user's home directory. (Accessed through
+# os, so it *SHOULD* be cross platform... 
+# It will warn you if you don't already have a file there. Use -a to create one.
+
+# Please report bugs (I know there's probably some...) to github@joshgordon.net
+
+# I did cacheing in the tempdir to help cut down on API calls. Use -flushcache 
+# to clear this cache. 
 
 # Import some stuff. 
 import json
@@ -45,7 +57,7 @@ def printUsage():
     print "Not implemented yet." 
 
 
-
+################################################################################
 # Get some stuff set up: 
 newKey=False
 temp=False
