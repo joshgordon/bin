@@ -49,6 +49,7 @@ def getWeather(json):
 
 def getIcon(json): 
     print json["current_observation"]["icon_url"]
+
 def flushCache(file): 
     os.remove(file)
 
