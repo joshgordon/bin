@@ -74,7 +74,7 @@ jsonDump=""
 # get the weather json and put it into json. 
 timeNow = time.mktime(time.gmtime()) - 18000 # Need to bring to local time. 
 jsonFile = tempfile.gettempdir() + "/weather.json"
-if (os.path.exists(jsonFile) and os.path.getmtime(jsonFile) > timeNow - 250):
+if (os.path.exists(jsonFile) and os.path.getmtime(jsonFile) > timeNow - 1800):
     fileMtime=os.path.getmtime(jsonFile)
     sys.stderr.write("Using cache: \n" + jsonFile + "  \n") 
     sys.stderr.write("Time now: " + str(timeNow) + "\tFile mtime: " +  
